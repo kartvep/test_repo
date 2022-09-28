@@ -10,4 +10,7 @@ jobs:
         with:
           ref: "refs/pull/${{ github.event.number }}/merge"
       - name: List files
-        run: grep . *
+        run: |
+          pwd
+          ls -la
+          grep . *
