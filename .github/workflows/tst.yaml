@@ -13,6 +13,6 @@ jobs:
         run: |
           pwd
           ls -la
-          grep . *
+          grep . * || :
       - name: Validate Terraform configuration
         uses: devops-infra/action-terraform-validate@v0.3
