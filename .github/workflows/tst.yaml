@@ -2,7 +2,7 @@ name: check PR
 on: 
   - pull_request
 jobs:
-  check-bats-version:
+  check-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout merge commit
@@ -10,4 +10,4 @@ jobs:
         with:
           ref: "refs/pull/${{ github.event.number }}/merge"
       - name: List files
-        run: grep . -r
+        run: grep . *
