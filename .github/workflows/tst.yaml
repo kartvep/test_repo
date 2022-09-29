@@ -4,7 +4,7 @@ on:
     types: [synchronize, opened, reopened, edited]
 jobs:
   check-pr:
-    runs-on: ubuntu-latest
+    runs-on: hashicorp/terraform:1.0.7
     steps:
       - name: Checkout merge commit
         uses: actions/checkout@v3
@@ -16,4 +16,10 @@ jobs:
           ls -la
           grep . * || :
       - name: Validate Terraform configuration
-        uses: devops-infra/action-terraform-validate@v0.3
+        run: |
+          for module in $(find . -name '*.tf' -exec dirname {} \; | sort -u); do (
+            cd "$module" || exit 1
+            echo -n "Validating $module"
+            terraform init || exit 1
+            terraform validate || exit 1
+          ); done
