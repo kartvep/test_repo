@@ -4,7 +4,10 @@ on:
     types: [synchronize, opened, reopened, edited]
 jobs:
   check-pr:
-    runs-on: hashicorp/terraform:1.0.7
+    runs-on: ubuntu-latest
+    container:
+      image: hashicorp/terraform:1.0.7
+      options: --entrypoint /bin/sh
     steps:
       - name: Checkout merge commit
         uses: actions/checkout@v3
